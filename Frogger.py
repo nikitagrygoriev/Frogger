@@ -17,7 +17,7 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Frogger')
 clock = pygame.time.Clock()
 
-bg = pygame.image.load("BackGroundUpd.png")  # optional
+bg = pygame.image.load("BackGroundUpd1.png")  # optional
 bg = pygame.transform.scale(bg, (display_width, display_height))
 
 frog_width = 75
@@ -60,13 +60,13 @@ def carCreate():
 
 def carAdd(x, y, j):
     carImg = pygame.image.load('Car1.png')
-    if j%5 == 2:
+    if j % 5 == 2:
         carImg = pygame.image.load('Car2.png')
-    elif j%5 == 3:
+    elif j % 5 == 3:
         carImg = pygame.image.load('Car3.png')
-    elif j%5 == 4:
+    elif j % 5 == 4:
         carImg = pygame.image.load('Car4.png')
-    elif j%5 == 1:
+    elif j % 5 == 1:
         carImg = pygame.image.load('Car5.png')
     w = 100  # optional
     h = 50  # optional
@@ -75,8 +75,20 @@ def carAdd(x, y, j):
     gameDisplay.blit(carImg, (x, y))
 
 
+def woodAdd(x, y):
+    woodImg = pygame.image.load('log.png')
+    w = 225  # optional
+    h = 50  # optional
+    woodImg = pygame.transform.scale(woodImg, (w, h))  # optional
+    gameDisplay.blit(woodImg, (x, y))
+
+
 def carsFunc(carx, cary, carw, carh, j):
     carAdd(carx, cary, j)
+
+
+def woodFunc(woodx, woody):
+    woodAdd(woodx, woody)
 
 
 def frog(x, y):
@@ -87,10 +99,11 @@ def text_objects(text, font, color=white):
     textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
+
 def crash(lives):
     message_display("You   lost", red)
     time.sleep(2)
-    lives -= 1
+    lives = lives - 1
     if lives == 0:
         game_intro()
     return lives
@@ -135,6 +148,7 @@ def game_intro():
 
 
 def game_loop():
+    flags = [0, 0, 0, 0, 0]
     lives = 3
     x_change = 0
     y_change = 0
@@ -149,13 +163,27 @@ def game_loop():
     car_width = 100
     car_height = 50
 
-    carsY = [ 305,  305,  305,  365,  365,  425,  425,  485,  485,  485,  545,  545]
+    wood_speed = 8
+    wood_width = 225
+    wood_height = 50
+
+    woodDirection = [1, 1, -1]
+    woodX = [-1050, -250, 950]
+    woodY = [65, 185, 125]
+
+    wood2Direction = [1, 1, -1]
+    wood2X = [-550, -650, 250]
+    wood2Y = [65, 185, 125]
+
     carsX = [-100, -450, -800, -200, -750, -450, -1100, -300, -650, -1000, -250, -800]
+    carsY = [305, 305, 305, 365, 365, 425, 425, 485, 485, 485, 545, 545]
 
     dodged = 0
     gameExit = False
 
     while not gameExit:
+        flag = 1
+        # print(pygame.mouse.get_pos())
         gameDisplay.blit(bg, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -190,6 +218,20 @@ def game_loop():
             carsFunc(carsX[j], carsY[j], car_width, car_height, j)
             carsX[j] += car_speed
 
+        for j in range(0, len(woodX)):
+            woodFunc(woodX[j], woodY[j])
+            if woodDirection[j] == -1:
+                woodX[j] -= wood_speed
+            else:
+                woodX[j] += wood_speed
+
+        for j in range(0, len(wood2X)):
+            woodFunc(wood2X[j], wood2Y[j])
+            if wood2Direction[j] == -1:
+                wood2X[j] -= wood_speed
+            else:
+                wood2X[j] += wood_speed
+
         frog(x, y)
         cars_dodged(dodged)
         lifeCount(lives)
@@ -198,14 +240,28 @@ def game_loop():
             x = (display_width * 0.5) - 50
             y = (display_height * 0.5) + 230
             lives = crash(lives)
+
         if y > display_height + 30 - frog_height or y < -30:
             x = (display_width * 0.5) - 50
             y = (display_height * 0.5) + 230
             lives = crash(lives)
+
         for j in range(0, len(carsX)):
             if carsX[j] > display_width:
                 carsX[j] = 0 - car_width
                 dodged += 1
+
+        for j in range(0, len(woodX)):
+            if woodDirection[j] == 1 and woodX[j] > display_width:
+                woodX[j] = 0 - wood_width
+            elif woodDirection[j] == -1 and woodX[j] + wood_width < 0:
+                woodX[j] = display_width + wood_width
+
+        for j in range(0, len(wood2X)):
+            if wood2Direction[j] == 1 and wood2X[j] > display_width:
+                wood2X[j] = 0 - wood_width
+            elif wood2Direction[j] == -1 and wood2X[j] + wood_width < 0:
+                wood2X[j] = display_width + wood_width
 
         for j in range(0, len(carsX)):
             if y + 5 < carsY[j] + car_height and y + frog_height > carsY[j] + 5:
@@ -214,12 +270,56 @@ def game_loop():
                     y = (display_height * 0.5) + 230
                     lives = crash(lives)
 
-        if time.time() - timeCheck > 0.25:
+        for j in range(0, len(woodX)):
+            if woodY[j] >= y and woodY[j] + wood_height <= y + frog_height:
+                if x + frog_width >= woodX[j] and x + frog_width <= woodX[j] + wood_width and woodDirection[
+                    j] != -1:
+                    x_change = wood_speed
+                    flag = 1
+                    break
+                elif x >= woodX[j] and x + frog_width <= woodX[j] + wood_width and woodDirection[j] == -1:
+                    x_change = -wood_speed
+                    flag = 1
+                    break
+                elif x + frog_width < woodX[j] or x > woodX[j] + wood_width:
+                    flag = 0
+
+        for j in range(0, len(wood2X)):
+            if wood2Y[j] >= y and wood2Y[j] + wood_height <= y + frog_height:
+                if x + frog_width >= wood2X[j] and x + frog_width <= wood2X[j] + wood_width and wood2Direction[
+                    j] != -1:
+                    x_change = wood_speed
+                    flag = 1
+                    break
+                elif x >= wood2X[j] and x + frog_width <= wood2X[j] + wood_width and wood2Direction[j] == -1:
+                    x_change = -wood_speed
+                    flag = 1
+                    break
+                elif (x + frog_width < wood2X[j] or x > wood2X[j] + wood_width) and flag == 0:
+                    x = (display_width * 0.5) - 50
+                    y = (display_height * 0.5) + 230
+                    lives = crash(lives)
+                    break
+        if time.time() - timeCheck > 0.2:
             timeCheck = time.time()
             canMove = 1
 
+        winPoints = [140, 340, 540, 740, 940]
+        for i in range(0, len(winPoints)):
+            if x < winPoints[i] and x + frog_width > winPoints[i]:
+                if y < 30:
+                    flags[i] = 1
+                    x = (display_width * 0.5) - 50
+                    y = (display_height * 0.5) + 230
+
+        for i in range(0,len(flags)):
+            if flags[i] == 1:
+                winImg = pygame.transform.scale(pygame.image.load('frog.png'), (frog_width, frog_height))
+                winImg = pygame.transform.flip(winImg, 0, 1)
+                gameDisplay.blit(winImg, (winPoints[i] - frog_width / 2, -10))
+
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(30)
 
 
 game_intro()
