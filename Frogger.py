@@ -2,8 +2,11 @@ import random
 import pygame
 import time
 import os
+import re
+from pygame.locals import*
 
 pygame.init()
+pygame.font.init()
 
 display_width = 1080
 display_height = 720
@@ -17,7 +20,7 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Frogger')
 clock = pygame.time.Clock()
 
-bg = pygame.image.load("BackGroundUpd1.png")  # optional
+bg = pygame.image.load('BackGroundUpd1.png')  # optional
 bg = pygame.transform.scale(bg, (display_width, display_height))
 
 frog_width = 75
@@ -25,20 +28,20 @@ frog_height = 75
 frogImg = pygame.transform.scale(pygame.image.load('frog.png'), (frog_width, frog_height))
 
 
-def cars_dodged(count):
+def scorePoints(count):
     font = pygame.font.Font('font2.ttf', 20)
-    text = font.render("Score: " + str(count), True, white)
-    gameDisplay.blit(text, (10, 10))
+    text = font.render('Score: ' + str(count), True, white)
+    gameDisplay.blit(text, (850, display_height - 30))
 
 
 def lifeCount(lives):
     fontLives = pygame.font.Font('font2.ttf', 20)
-    textLives = fontLives.render("Lives: " + str(lives), True, white)
+    textLives = fontLives.render('Lives: ' + str(lives), True, white)
     gameDisplay.blit(textLives, (10, display_height - 30))
 
 
-def message_display(text, color=white):
-    largeText = pygame.font.Font('font.ttf', 120)
+def message_display(text, color=white, font='font.ttf'):
+    largeText = pygame.font.Font(font, 120)
     TextSurf, TextRect = text_objects(text, largeText, color)
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
@@ -101,13 +104,24 @@ def text_objects(text, font, color=white):
 
 
 def crash(lives):
-    message_display("You   lost", red)
+    message_display('You have died!', red)
     time.sleep(2)
     lives = lives - 1
     if lives == 0:
+        gameDisplay.fill(black)
+        message_display('Game over!', red)
+        time.sleep(2)
         game_intro()
     return lives
 
+def winDisp(score):
+    gameDisplay.fill(black)
+    message_display('You Won!')
+    time.sleep(2)
+    gameDisplay.fill(black)
+    finalText = 'Your score  ' + str(score)
+    message_display(finalText)
+    time.sleep(3)
 
 def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
     mouse = pygame.mouse.get_pos()
@@ -117,9 +131,9 @@ def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
         pygame.draw.rect(gameDisplay, acolor, (x, y, w, h))
         if click[0] == 1 and action != None:
-            if action == "play":
+            if action == 'play':
                 game_loop()
-            elif action == "quit":
+            elif action == 'quit':
                 pygame.quit()
                 quit()
     else:
@@ -138,16 +152,18 @@ def game_intro():
                 quit()
 
         gameDisplay.fill(white)
-        message_display("Frogger", black)
+        message_display('Frogger', black)
 
-        button("Start", 150, 550, 100, 50, grey, black, "play")
+        button('Start', 150, 550, 100, 50, grey, black, 'play')
         rect2 = display_width - 250
-        button("Exit", rect2, 550, 100, 50, grey, black, "quit")
+        button('Exit', rect2, 550, 100, 50, grey, black, 'quit')
         pygame.display.update()
         clock.tick(10)
 
 
 def game_loop():
+    win = 0
+    score = 50000
     flags = [0, 0, 0, 0, 0]
     lives = 3
     x_change = 0
@@ -178,13 +194,14 @@ def game_loop():
     carsX = [-100, -450, -800, -200, -750, -450, -1100, -300, -650, -1000, -250, -800]
     carsY = [305, 305, 305, 365, 365, 425, 425, 485, 485, 485, 545, 545]
 
-    dodged = 0
     gameExit = False
 
     while not gameExit:
+        score -= 1
         flag = 1
         # print(pygame.mouse.get_pos())
         gameDisplay.blit(bg, (0, 0))
+        scorePoints(score)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -233,7 +250,6 @@ def game_loop():
                 wood2X[j] += wood_speed
 
         frog(x, y)
-        cars_dodged(dodged)
         lifeCount(lives)
 
         if x > display_width + 30 - frog_width or x < -30:
@@ -249,7 +265,6 @@ def game_loop():
         for j in range(0, len(carsX)):
             if carsX[j] > display_width:
                 carsX[j] = 0 - car_width
-                dodged += 1
 
         for j in range(0, len(woodX)):
             if woodDirection[j] == 1 and woodX[j] > display_width:
@@ -303,16 +318,27 @@ def game_loop():
         if time.time() - timeCheck > 0.2:
             timeCheck = time.time()
             canMove = 1
-
-        winPoints = [140, 340, 540, 740, 940]
-        for i in range(0, len(winPoints)):
-            if x < winPoints[i] and x + frog_width > winPoints[i]:
-                if y < 30:
-                    flags[i] = 1
+        if win == 5:
+            winDisp(score)
+            gameExit = True
+        winPoints = [150, 340, 540, 740, 940]
+        if y < 30:
+            for i in range(0, len(winPoints)):
+                if x < winPoints[i] and x + frog_width > winPoints[i] and flags[i] != 1:
                     x = (display_width * 0.5) - 50
                     y = (display_height * 0.5) + 230
+                    flags[i] = 1
+                    score += 10000
+                    win += 1
+                    message_display('+10k', white, 'font2.ttf')
+                    time.sleep(1.5)
+                    break
+                elif i == len(winPoints) - 1:
+                    x = (display_width * 0.5) - 50
+                    y = (display_height * 0.5) + 230
+                    lives = crash(lives)
 
-        for i in range(0,len(flags)):
+        for i in range(0, len(flags)):
             if flags[i] == 1:
                 winImg = pygame.transform.scale(pygame.image.load('frog.png'), (frog_width, frog_height))
                 winImg = pygame.transform.flip(winImg, 0, 1)
@@ -325,4 +351,5 @@ def game_loop():
 game_intro()
 game_loop()
 pygame.quit()
+pygame.font.quit()
 quit()
