@@ -32,6 +32,7 @@ pygame.mixer.music.load('nightcall.mp3')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
+
 def scorePoints(count):
     font = pygame.font.Font('font2.ttf', 20)
     text = font.render('Score: ' + str(count), True, blue)
@@ -45,7 +46,7 @@ def lifeCount(lives):
 
 
 def message_display(text, color=white, font='font.ttf'):
-    largeText = pygame.font.Font(font, 80)
+    largeText = pygame.font.Font(font, 60)
     TextSurf, TextRect = text_objects(text, largeText, color)
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
@@ -53,7 +54,7 @@ def message_display(text, color=white, font='font.ttf'):
 
 
 def small_message_display(msg, x, y, w, h, textcolor):
-    smallText = pygame.font.Font('font.ttf', 15)
+    smallText = pygame.font.Font('font.ttf', 12)
     textSurf, textRect = text_objects(msg, smallText, textcolor)
     textRect.center = ((x + (w / 2)), (y + (h / 2)))
     gameDisplay.blit(textSurf, textRect)
@@ -144,7 +145,7 @@ def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
             elif action == 'quit':
                 pygame.quit()
                 quit()
-            elif action =='hard':
+            elif action == 'hard':
                 game_loop(0)
     else:
         pygame.draw.rect(gameDisplay, icolor, (x, y, w, h))
@@ -155,10 +156,10 @@ def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
 def game_intro(won=0):
     intro = True
     textarr = ['I\'s not a crab! It\'s a frog!',
-               '"Game of the year" - IGN ','"Best. Game. Ever." - Wired UK','"Mom\'s spaghetti" - Eminem',
+               '"Game of the year" - IGN ', '"Best. Game. Ever." - Wired UK', '"Mom\'s spaghetti" - Eminem',
                'A Breath of Fresh Air - AVGN', '"Masterfully Crafted Game" - GameSpot',
                '98/100 - Polygon', '"Can\'t stop playing" - The Kotaku']
-    rnd = random.randrange(0,len(textarr)-1)
+    rnd = random.randrange(0, len(textarr) - 1)
     while intro:
         bg = pygame.image.load('intro3.jpg')
         bg = pygame.transform.scale(bg, (display_width, display_height))
@@ -169,12 +170,12 @@ def game_intro(won=0):
                 quit()
         gameDisplay.blit(bg, (0, 0))
         message_display('Frogger', violet)
-        small_message_display(textarr[rnd],900-len(textarr[rnd])*5,0,100,100,white)
+        small_message_display(textarr[rnd], 900 - len(textarr[rnd]) * 5, 0, 100, 100, white)
         button('Start', 150, 600, 100, 50, black, white, 'play', violet)
         rect2 = display_width - 250
         button('Exit', rect2, 600, 100, 50, black, white, 'quit', violet)
         if won:
-            button('Nightmare', 500, 600, 100, 50, black, red, 'hard', white)
+            button('Nightmare', 500, 600, 150, 50, black, red, 'hard', white)
 
         pygame.display.update()
         clock.tick(10)
@@ -343,7 +344,7 @@ def game_loop(yc=60):
             winDisp(score)
             gameExit = True
             won = 1
-            game_intro(won) #delete if necessary
+            game_intro(won)  # delete if necessary
         winPoints = [150, 340, 540, 740, 940]
         if y < 30:
             for i in range(0, len(winPoints)):

@@ -2,26 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53c15b13-fb89-4c63-adf6-d894880a0de7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BackGround.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BackGroundOld.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BackGroundUpd.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BackGroundUpd1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/BackGround_Demo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Back_2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Car1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Car2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Car3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Car4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Car5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Trash/Resource.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frog.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lilyPad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/log.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/BackGroundUpd3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/BackGroundUpd4-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/BackGroundUpd4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/N1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/N2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/N3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/N41.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/N5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/death.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/font.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/font2.TTF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/frogfinal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/intro3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/logtest.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/Frogger/nightcall.mp3" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/Frogger.exe" afterPath="$PROJECT_DIR$/build/Frogger/Frogger.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/base_library.zip" afterPath="$PROJECT_DIR$/build/Frogger/base_library.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/out00-PKG.pkg" afterPath="$PROJECT_DIR$/build/Frogger/out00-PKG.pkg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/out00-PYZ.pyz" afterPath="$PROJECT_DIR$/build/Frogger/out00-PYZ.pyz" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font.TTF" afterPath="$PROJECT_DIR$/font.TTF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/Frogger/Frogger.exe" afterPath="$PROJECT_DIR$/dist/Frogger/Frogger.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/Frogger/base_library.zip" afterPath="$PROJECT_DIR$/dist/Frogger/base_library.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Frogger.py" afterPath="$PROJECT_DIR$/Frogger.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/out00-Analysis.toc" afterPath="$PROJECT_DIR$/build/Frogger/out00-Analysis.toc" />
@@ -29,6 +30,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/out00-EXE.toc" afterPath="$PROJECT_DIR$/build/Frogger/out00-EXE.toc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/out00-PYZ.toc" afterPath="$PROJECT_DIR$/build/Frogger/out00-PYZ.toc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/warnFrogger.txt" afterPath="$PROJECT_DIR$/build/Frogger/warnFrogger.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/Frogger/xref-Frogger.html" afterPath="$PROJECT_DIR$/build/Frogger/xref-Frogger.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +44,8 @@
       <file leaf-file-name="Frogger.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Frogger.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-521">
-              <caret line="156" column="15" lean-forward="false" selection-start-line="156" selection-start-column="15" selection-end-line="156" selection-end-column="15" />
+            <state relative-caret-position="3621">
+              <caret line="213" column="27" lean-forward="false" selection-start-line="213" selection-start-column="27" selection-end-line="213" selection-end-column="27" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -130,7 +132,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="875" />
     <option name="y" value="183" />
     <option name="width" value="976" />
@@ -152,7 +154,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -164,6 +165,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="RunDashboard">
@@ -241,19 +243,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1051" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1051" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2796875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3214671" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3214671" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -279,6 +281,16 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Frogger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Frogger.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -661,8 +673,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Frogger.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-521">
-          <caret line="156" column="15" lean-forward="false" selection-start-line="156" selection-start-column="15" selection-end-line="156" selection-end-column="15" />
+        <state relative-caret-position="3621">
+          <caret line="213" column="27" lean-forward="false" selection-start-line="213" selection-start-column="27" selection-end-line="213" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
