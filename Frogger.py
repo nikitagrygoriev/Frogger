@@ -3,7 +3,7 @@ import pygame
 import time
 import os
 import re
-from pygame.locals import*
+from pygame.locals import *
 
 pygame.init()
 pygame.font.init()
@@ -15,33 +15,37 @@ black = (0, 0, 0)
 grey = (100, 100, 100)
 white = (255, 255, 255)
 red = (255, 0, 0)
+violet = (236, 3, 150)
+blue = (15, 100, 180)
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Frogger')
 clock = pygame.time.Clock()
 
-bg = pygame.image.load('BackGroundUpd1.png')  # optional
+bg = pygame.image.load('BackGroundUpd4.png')  # optional
 bg = pygame.transform.scale(bg, (display_width, display_height))
 
-frog_width = 75
-frog_height = 75
-frogImg = pygame.transform.scale(pygame.image.load('frog.png'), (frog_width, frog_height))
-
+frog_width = 70
+frog_height = 70
+frogImg = pygame.transform.scale(pygame.image.load('frogfinal.png'), (frog_width - 5, frog_height - 5))
+pygame.mixer.music.load('nightcall.mp3')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.1)
 
 def scorePoints(count):
     font = pygame.font.Font('font2.ttf', 20)
-    text = font.render('Score: ' + str(count), True, white)
+    text = font.render('Score: ' + str(count), True, blue)
     gameDisplay.blit(text, (850, display_height - 30))
 
 
 def lifeCount(lives):
     fontLives = pygame.font.Font('font2.ttf', 20)
-    textLives = fontLives.render('Lives: ' + str(lives), True, white)
+    textLives = fontLives.render('Lives: ' + str(lives), True, violet)
     gameDisplay.blit(textLives, (10, display_height - 30))
 
 
 def message_display(text, color=white, font='font.ttf'):
-    largeText = pygame.font.Font(font, 120)
+    largeText = pygame.font.Font(font, 80)
     TextSurf, TextRect = text_objects(text, largeText, color)
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
@@ -49,7 +53,7 @@ def message_display(text, color=white, font='font.ttf'):
 
 
 def small_message_display(msg, x, y, w, h, textcolor):
-    smallText = pygame.font.Font('font.ttf', 20)
+    smallText = pygame.font.Font('font.ttf', 15)
     textSurf, textRect = text_objects(msg, smallText, textcolor)
     textRect.center = ((x + (w / 2)), (y + (h / 2)))
     gameDisplay.blit(textSurf, textRect)
@@ -58,19 +62,19 @@ def small_message_display(msg, x, y, w, h, textcolor):
 def carCreate():
     car_w = 100
     car_h = 50
-    carImg = pygame.transform.flip(pygame.transform.scale(pygame.image.load('Car1.png'), (car_w, car_h)), 1, 0)
+    carImg = pygame.transform.flip(pygame.transform.scale(pygame.image.load('NCar1.png'), (car_w, car_h)), 1, 0)
 
 
 def carAdd(x, y, j):
-    carImg = pygame.image.load('Car1.png')
+    carImg = pygame.image.load('N1.png')
     if j % 5 == 2:
-        carImg = pygame.image.load('Car2.png')
+        carImg = pygame.image.load('N2.png')
     elif j % 5 == 3:
-        carImg = pygame.image.load('Car3.png')
+        carImg = pygame.image.load('N3.png')
     elif j % 5 == 4:
-        carImg = pygame.image.load('Car4.png')
+        carImg = pygame.image.load('N41.png')
     elif j % 5 == 1:
-        carImg = pygame.image.load('Car5.png')
+        carImg = pygame.image.load('N5.png')
     w = 100  # optional
     h = 50  # optional
     carImg = pygame.transform.scale(carImg, (w, h))  # optional
@@ -79,7 +83,7 @@ def carAdd(x, y, j):
 
 
 def woodAdd(x, y):
-    woodImg = pygame.image.load('log.png')
+    woodImg = pygame.image.load('logtest.png')
     w = 225  # optional
     h = 50  # optional
     woodImg = pygame.transform.scale(woodImg, (w, h))  # optional
@@ -104,24 +108,28 @@ def text_objects(text, font, color=white):
 
 
 def crash(lives):
-    message_display('You have died!', red)
+    death = pygame.mixer.Sound('death.wav')
+    death.play()
+    message_display('You have died!', violet)
     time.sleep(2)
     lives = lives - 1
     if lives == 0:
         gameDisplay.fill(black)
-        message_display('Game over!', red)
+        message_display('Game over!', violet)
         time.sleep(2)
         game_intro()
     return lives
 
+
 def winDisp(score):
     gameDisplay.fill(black)
-    message_display('You Won!')
+    message_display('You Won!', blue)
     time.sleep(2)
     gameDisplay.fill(black)
     finalText = 'Your score  ' + str(score)
-    message_display(finalText)
+    message_display(finalText, blue)
     time.sleep(3)
+
 
 def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
     mouse = pygame.mouse.get_pos()
@@ -136,32 +144,45 @@ def button(msg, x, y, w, h, acolor, icolor, action=None, textcolor=white):
             elif action == 'quit':
                 pygame.quit()
                 quit()
+            elif action =='hard':
+                game_loop(0)
     else:
         pygame.draw.rect(gameDisplay, icolor, (x, y, w, h))
 
     small_message_display(msg, x, y, w, h, textcolor)
 
 
-def game_intro():
+def game_intro(won=0):
     intro = True
-
+    textarr = ['I\'s not a crab! It\'s a frog!',
+               '"Game of the year" - IGN ','"Best. Game. Ever." - Wired UK','"Mom\'s spaghetti" - Eminem',
+               'A Breath of Fresh Air - AVGN', '"Masterfully Crafted Game" - GameSpot',
+               '98/100 - Polygon', '"Can\'t stop playing" - The Kotaku']
+    rnd = random.randrange(0,len(textarr)-1)
     while intro:
+        bg = pygame.image.load('intro3.jpg')
+        bg = pygame.transform.scale(bg, (display_width, display_height))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-
-        gameDisplay.fill(white)
-        message_display('Frogger', black)
-
-        button('Start', 150, 550, 100, 50, grey, black, 'play')
+        gameDisplay.blit(bg, (0, 0))
+        message_display('Frogger', violet)
+        small_message_display(textarr[rnd],900-len(textarr[rnd])*5,0,100,100,white)
+        button('Start', 150, 600, 100, 50, black, white, 'play', violet)
         rect2 = display_width - 250
-        button('Exit', rect2, 550, 100, 50, grey, black, 'quit')
+        button('Exit', rect2, 600, 100, 50, black, white, 'quit', violet)
+        if won:
+            button('Nightmare', 500, 600, 100, 50, black, red, 'hard', white)
+
         pygame.display.update()
         clock.tick(10)
+    bg = pygame.image.load('BackGroundUpd1.png')
+    bg = pygame.transform.scale(bg, (display_width, display_height))
 
 
-def game_loop():
+def game_loop(yc=60):
     win = 0
     score = 50000
     flags = [0, 0, 0, 0, 0]
@@ -208,10 +229,10 @@ def game_loop():
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT and canMove != 0:
-                    x_change = -60
+                    x_change = -yc
                     canMove = 0
                 elif event.key == pygame.K_RIGHT and canMove != 0:
-                    x_change = 60
+                    x_change = yc
                     canMove = 0
                 elif event.key == pygame.K_UP and canMove != 0:
                     y_change = -60
@@ -292,7 +313,7 @@ def game_loop():
                     x_change = wood_speed
                     flag = 1
                     break
-                elif x >= woodX[j] and x + frog_width <= woodX[j] + wood_width and woodDirection[j] == -1:
+                elif x >= woodX[j] and x + frog_width <= woodX[j] + wood_width + 50 and woodDirection[j] == -1:
                     x_change = -wood_speed
                     flag = 1
                     break
@@ -306,7 +327,7 @@ def game_loop():
                     x_change = wood_speed
                     flag = 1
                     break
-                elif x >= wood2X[j] and x + frog_width <= wood2X[j] + wood_width and wood2Direction[j] == -1:
+                elif x >= wood2X[j] and x + frog_width <= wood2X[j] + wood_width + 50 and wood2Direction[j] == -1:
                     x_change = -wood_speed
                     flag = 1
                     break
@@ -321,6 +342,8 @@ def game_loop():
         if win == 5:
             winDisp(score)
             gameExit = True
+            won = 1
+            game_intro(won) #delete if necessary
         winPoints = [150, 340, 540, 740, 940]
         if y < 30:
             for i in range(0, len(winPoints)):
@@ -330,7 +353,7 @@ def game_loop():
                     flags[i] = 1
                     score += 10000
                     win += 1
-                    message_display('+10k', white, 'font2.ttf')
+                    message_display('+10k', violet, 'font2.ttf')
                     time.sleep(1.5)
                     break
                 elif i == len(winPoints) - 1:
@@ -340,12 +363,12 @@ def game_loop():
 
         for i in range(0, len(flags)):
             if flags[i] == 1:
-                winImg = pygame.transform.scale(pygame.image.load('frog.png'), (frog_width, frog_height))
+                winImg = pygame.transform.scale(pygame.image.load('frogfinal.png'), (frog_width, frog_height))
                 winImg = pygame.transform.flip(winImg, 0, 1)
-                gameDisplay.blit(winImg, (winPoints[i] - frog_width / 2, -10))
+                gameDisplay.blit(winImg, (winPoints[i] - frog_width / 2, 5))
 
         pygame.display.update()
-        clock.tick(30)
+        clock.tick(60)
 
 
 game_intro()
